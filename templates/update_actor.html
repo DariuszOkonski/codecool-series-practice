@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block title %}Update Actor{% endblock %}
+{% block content %}
+
+<h1 class="title text-center">Update Actor</h1>
+<div class="card">
+    <form action="#" method="post">
+        <p class="form-element">
+            <label class="form-element-label">Name:</label>
+            <input type="text" name="name" value="{{ actor["name"] }}" >
+        </p>
+        <p class="form-element">
+            <label class="form-element-label">Birthday:</label>
+            <input type="text" name="birthday" value="{{ actor["birthday"] }}" >
+        </p>
+        <p class="form-element">
+            <label class="form-element-label">Death:</label>
+            <input type="text" name="death" value="{{ actor["death"] }}" >
+        </p>
+        <p class="form-element">
+            <label class="form-element-label">Biography:</label>
+            <input type="text" name="biography" value="{{ actor["biography"] }}" >
+        </p>
+        <p class="text-center">
+            <button type="submit">Submit</button>
+        </p>
+    </form>
+</div>
+{% endblock %}

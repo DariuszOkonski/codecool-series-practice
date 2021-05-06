@@ -91,6 +91,19 @@ def post_add_actor():
 
     return redirect(url_for('show_actors'))
 
+@app.route('/update-actor/<int:id>')
+def update_actor(id):
+    actor = queries.get_update_actor(id)
+    return render_template('update_actor.html', actor=actor[0])
+
+@app.route('/update-actor/<int:id>', methods=['POST'])
+def post_update_actor(id):
+    print(id)
+    print(request.form)
+    queries.set_update_actor(id, request.form)
+
+    return redirect(url_for('show_actors'))
+
 def main():
     app.run(debug=False)
 
