@@ -77,3 +77,14 @@ def get_show_seasons(id):
         JOIN seasons ON shows.id = seasons.show_id
         WHERE shows.id = %(id)s;
     """, {"id": id})
+
+def get_show_actors():
+    return data_manager.execute_select("SELECT * FROM actors ORDER BY id DESC")
+
+def insert_new_actor(actor):
+    return data_manager.execute_dml_statement("""
+    INSERT INTO actors(id, name, birthday, death, biography)
+    VALUES(((SELECT MAX(id) FROM actors) + 1), %(name)s, %(birthday)s, %(death)s, %(biography)s)
+
+    """,
+    {'name': actor['name'], 'birthday': actor['birthday'], 'death': actor['death'], 'biography': actor['biography']})

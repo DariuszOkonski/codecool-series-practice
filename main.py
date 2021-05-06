@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 from data import queries
 import math
 from dotenv import load_dotenv
@@ -74,6 +74,22 @@ def show(id):
 
     return render_template('show.html', show=show, seasons=seasons)
 
+# =============================================
+@app.route('/show-actors')
+def show_actors():
+    actors = queries.get_show_actors()
+
+    return render_template('show_actors.html', actors=actors)
+
+@app.route('/add-actor')
+def add_actor():
+    return render_template('add_actor.html')
+
+@app.route('/add-actor', methods=['POST'])
+def post_add_actor():
+    queries.insert_new_actor(request.form)
+
+    return redirect(url_for('show_actors'))
 
 def main():
     app.run(debug=False)
