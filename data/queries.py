@@ -81,7 +81,7 @@ def get_show_seasons(id):
 
 # =============================================================================
 def get_show_actors():
-    return data_manager.execute_select("SELECT * FROM actors ORDER BY id DESC")
+    return data_manager.execute_select("SELECT * FROM actors ORDER BY name ASC")
 
 def insert_new_actor(actor):
     return data_manager.execute_dml_statement("""
@@ -89,7 +89,10 @@ def insert_new_actor(actor):
     VALUES(((SELECT MAX(id) FROM actors) + 1), %(name)s, %(birthday)s, %(death)s, %(biography)s)
 
     """,
-    {'name': actor['name'], 'birthday': actor['birthday'], 'death': actor['death'], 'biography': actor['biography']})
+    {   'name': actor['name'],
+        'birthday': (actor['birthday'] if actor['birthday'] else None),
+        'death': (actor['death'] if actor['death'] else None),
+        'biography': actor['biography']})
 
 
 def get_update_actor(id):
@@ -108,6 +111,12 @@ def set_update_actor(id, actor):
     """,
     {'id': id, 'name': actor['name'], 'birthday': actor['birthday'], 'death': actor['death'], 'biography': actor['biography'] })
 
+def set_delete_actor(id):
+    return data_manager.execute_dml_statement("""
+        DELETE FROM actors
+        WHERE id=%(id)s
+    """,
+    {'id': id})
 
 
 

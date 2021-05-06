@@ -98,11 +98,21 @@ def update_actor(id):
 
 @app.route('/update-actor/<int:id>', methods=['POST'])
 def post_update_actor(id):
-    print(id)
-    print(request.form)
     queries.set_update_actor(id, request.form)
 
     return redirect(url_for('show_actors'))
+
+@app.route('/delete-actor/<int:id>', methods=['GET'])
+def delete_actor(id):
+    queries.set_delete_actor(id)
+
+    return redirect(url_for('show_actors'))
+
+@app.route('/show-actor/<int:id>')
+def show_actor(id):
+    actor = queries.get_update_actor(id)
+
+    return render_template('show_actor.html', actor=actor[0])
 
 def main():
     app.run(debug=False)
