@@ -3,31 +3,33 @@
 {% block content %}
 
 <h1 class="title text-center">Show Actors</h1>
-<div class="card">
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Biography</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for actor in actors %}
-                <tr>
-                    <td>{{ actor['id'] }}</td>
-                    <td>{{ actor['name'] }}</td>
-                    <td>{{ actor['biography'] | string | truncate(150) }}...</td>
-                    <td>
-                        <a href="/update-actor/{{ actor['id'] }}">update</a>
-                        <a href="/delete-actor/{{ actor['id'] }}">delete</a>
-                        <a href="/show-actor/{{ actor['id'] }}">show</a>
-                    </td>
-                </tr>
-            {% endfor %}
+<div class="card" id="actors">
 
-        </tbody>
-    </table>
+
+{#    <table>#}
+{#        <thead>#}
+{#            <tr>#}
+{#                <th>ID</th>#}
+{#                <th>Name</th>#}
+{#                <th>Biography</th>#}
+{#                <th>Action</th>#}
+{#            </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#            {% for actor in actors %}#}
+{#                <tr>#}
+{#                    <td>{{ actor['id'] }}</td>#}
+{#                    <td>{{ actor['name'] }}</td>#}
+{#                    <td>{{ actor['biography'] | string | truncate(150) }}...</td>#}
+{#                    <td>#}
+{#                        <a href="/update-actor/{{ actor['id'] }}">update</a>#}
+{#                        <a href="/delete-actor/{{ actor['id'] }}">delete</a>#}
+{#                        <a href="/show-actor/{{ actor['id'] }}">show</a>#}
+{#                    </td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{##}
+{#        </tbody>#}
+{#    </table>#}
 </div>
 {% endblock %}

@@ -1,7 +1,10 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, jsonify
 from data import queries
 import math
 from dotenv import load_dotenv
+
+import mimetypes
+mimetypes.add_type('application/javascript', '.js')
 
 load_dotenv()
 app = Flask('codecool_series')
@@ -10,6 +13,7 @@ SHOWN_PAGE_NUMBERS = 5 # should be odd to have a symmetry in pagination
 
 @app.route('/')
 def index():
+    print(mimetypes.guess_type('/'))
     shows = queries.get_shows()
     return render_template('index.html', shows=shows)
 
@@ -77,32 +81,13 @@ def show(id):
 # =============================================
 @app.route('/show-actors')
 def show_actors():
-    actors = queries.get_show_actors()
+    return render_template('show_actors.html')
 
-    return render_template('show_actors.html', actors=actors)
+@app.route('/get-actors')
+def get_actors():
+    actors = jsonify(queries.get_show_actors())
+    return actors
 
-@app.route('/add-actor')
-def add_actor():
-    return render_template('add_actor.html')
-
-@app.route('/add-actor', methods=['POST'])
-def post_add_actor():
-    queries.insert_new_actor(request.form)
-
-    return redirect(url_for('show_actors'))
-
-@app.route('/update-actor/<int:id>')
-def update_actor(id):
-    actor = queries.get_update_actor(id)
-    return render_template('update_actor.html', actor=actor[0])
-
-@app.route('/update-actor/<int:id>', methods=['POST'])
-def post_update_actor(id):
-    print(id)
-    print(request.form)
-    queries.set_update_actor(id, request.form)
-
-    return redirect(url_for('show_actors'))
 
 def main():
     app.run(debug=False)
