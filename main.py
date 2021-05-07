@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, redirect, jsonify
 from data import queries
 import math
 from dotenv import load_dotenv
@@ -74,6 +74,22 @@ def show(id):
 
     return render_template('show.html', show=show, seasons=seasons)
 
+# ==========================================
+@app.route('/genres')
+def show_genres():
+    return render_template('genres.html')
+
+@app.route('/get-genres')
+def get_genres():
+    genres = queries.get_genres()
+
+    return jsonify(genres)
+
+@app.route('/get-genre/<int:id>')
+def get_single_genre(id):
+    genre = queries.get_single_genre(id)
+
+    return jsonify(genre)
 
 def main():
     app.run(debug=False)

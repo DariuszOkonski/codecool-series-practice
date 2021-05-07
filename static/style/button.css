@@ -1,3 +1,4 @@
+a.btn,
 button,
 input[type="submit"],
 input[type="button"] {
@@ -10,7 +11,7 @@ input[type="button"] {
     border-radius: 2px;
     background: rgba(0, 0, 0, 0);
 }
-
+a.btn:hover,
 button:hover,
 button:active,
 input[type="submit"]:hover,

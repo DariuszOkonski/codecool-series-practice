@@ -77,3 +77,15 @@ def get_show_seasons(id):
         JOIN seasons ON shows.id = seasons.show_id
         WHERE shows.id = %(id)s;
     """, {"id": id})
+
+# ====================================
+def get_genres():
+    return data_manager.execute_select("""
+        SELECT * FROM genres
+    """)
+
+def get_single_genre(id):
+    return data_manager.execute_select("""
+        SELECT * FROM genres
+        WHERE id=%(id)s
+    """, {"id": id})
